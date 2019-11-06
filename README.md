@@ -30,7 +30,7 @@ I think it's a good way of using timthumb, to store it on a non-public folder (L
 How you create your own app structure depends on you, or on your team. If your desired resize endpoint points to a specific file, you can use this code there.
 
 ```php
-	
+
 /* Redefine your with own defaults here.
  * This are just examples, no one is required. */
 
@@ -51,3 +51,15 @@ After this is set up, you can use all the parameters shown in the [official docu
 ## Documentation
 
 You can also check the original documentation at [binarymoon.uk](http://binarymoon.co.uk/projects/timthumb)
+
+## New Feature
+
+New zoom crop options.
+
+### zoom crop [4]
+
+To resize an image to fit a given width and height with a border. (keeping aspet ratio)
+
+### zoom crop [5]
+
+To resize an image to fit a given width and height without a border. (keeping aspet ratio)

@@ -14,7 +14,7 @@ To use this repo on you composer proyect, simply add an *vcs* repository pointin
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/GabrielGil/TimThumb"
+			"url": "https://github.com/jyokyoku/TimThumb"
 		}
 	],
 	"require": {

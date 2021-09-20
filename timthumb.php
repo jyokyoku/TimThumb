@@ -496,8 +496,29 @@ class timthumb {
 	}
 	protected function processImageAndWriteToCache($localImage){
 		$sData = getimagesize($localImage);
-		$origType = $sData[2];
-		$mimeType = $sData['mime'];
+
+		if ($sData) {
+			$origType = $sData[2];
+			$mimeType = $sData['mime'];
+
+		} else {
+			$mimeType = mime_content_type($localImage);
+			
+			if (preg_match('/^image\/(gif|jpg|jpeg|png)$/i', $mimeType, $matches)) {
+				switch (strtolower($matches[1])) {
+					case 'jpg':
+					case 'jpeg':
+						$origType = IMAGETYPE_JPEG;
+						break;
+					case 'png':
+						$origType = IMAGETYPE_PNG;
+						break;
+					case 'gif':
+						$origType = IMAGETYPE_GIF;
+						break;
+				}
+			}
+		}
 
 		$this->debug(3, "Mime type of image is $mimeType");
 		if(! preg_match('/^image\/(?:gif|jpg|jpeg|png)$/i', $mimeType)){

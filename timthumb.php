@@ -495,7 +495,7 @@ class timthumb {
 		return false;
 	}
 	protected function processImageAndWriteToCache($localImage){
-		$sData = getimagesize($localImage);
+		$sData = @getimagesize($localImage);
 
 		if ($sData) {
 			$origType = $sData[2];

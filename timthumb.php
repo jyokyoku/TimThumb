@@ -516,13 +516,16 @@ class timthumb {
 					case 'gif':
 						$origType = IMAGETYPE_GIF;
 						break;
+					case 'webp':
+						$origType = IMAGETYPE_WEBP;
+						break;
 				}
 			}
 		}
 
 		$this->debug(3, "Mime type of image is $mimeType");
-		if(! preg_match('/^image\/(?:gif|jpg|jpeg|png)$/i', $mimeType)){
-			return $this->error("The image being resized is not a valid gif, jpg or png.");
+		if(! preg_match('/^image\/(?:gif|jpg|jpeg|png|webp)$/i', $mimeType)){
+			return $this->error("The image being resized is not a valid gif, jpg, png or webp.");
 		}
 
 		if (!function_exists ('imagecreatetruecolor')) {
@@ -867,6 +870,9 @@ class timthumb {
 		} else if(preg_match('/^image\/gif$/i', $mimeType)){
 			$imgType = 'gif';
 			imagegif($canvas, $tempfile);
+		} else if(preg_match('/^image\/webp$/i', $mimeType)){
+			$imgType = 'web';
+			imagewebp($canvas, $tempfile, floor($quality * 0.09));
 		} else {
 			return $this->sanityFail("Could not match mime type after verifying it previously.");
 		}
@@ -1176,6 +1182,8 @@ class timthumb {
 		}
 		if(strtolower($mimeType) == 'image/jpg'){
 			$mimeType = 'image/jpeg';
+		} elseif(strtolower($mimeType) == 'image/web'){
+			$mimeType = 'image/webp';
 		}
 		$gmdate_expires = gmdate ('D, d M Y H:i:s', strtotime ('now +10 days')) . ' GMT';
 		$gmdate_modified = gmdate ('D, d M Y H:i:s') . ' GMT';
@@ -1219,6 +1227,10 @@ class timthumb {
 
 			case 'image/gif':
 				$image = imagecreatefromgif ($src);
+				break;
+
+			case 'image/webp':
+				$image = imagecreatefromwebp ($src);
 				break;
 			
 			default:

@@ -872,7 +872,7 @@ class timthumb {
 			imagegif($canvas, $tempfile);
 		} else if(preg_match('/^image\/webp$/i', $mimeType)){
 			$imgType = 'web';
-			imagewebp($canvas, $tempfile, floor($quality * 0.09));
+			imagewebp($canvas, $tempfile, $quality);
 		} else {
 			return $this->sanityFail("Could not match mime type after verifying it previously.");
 		}
